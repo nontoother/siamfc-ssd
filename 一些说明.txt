@@ -1,0 +1,18 @@
+__Data\tracking-Curation中的数据是多加了标注框，标注框的格式为x1,y1,x2,y2的形式。
+__Data\tracking-Curation-old为原始预处理数据，无标注框。
+推理的时候第一帧的标注数据为左上角x1, y1，w，h的格式
+
+没加数据增强，现在都是17*17的表，有的地方直接数字定义的
+现在设的anchor比例w:h是1:3，考虑完整的人的宽高比；考虑只有头部时候的宽高比
+
+推理阶段的scale_step，用于调节目标框比例，是否需要调整？
+
+Logs2是在batchsize=2的时候对所有二楼数据进行的训练结果
+Logs16是在batchsize=16的时候对所有二楼数据进行的训练结果
+Logs new是在batchsize=8？（不确定）的时候对所有二楼数据进行的训练结果，包含将其推理结果转换成视频的信息
+Logs1是在batchsize=2的时候对两个二楼数据进行的训练结果
+Logs-reference是用siamrpn的方法进行encode得到的模型结果
+Logs-ssd是用ssd的encode方法得到的模型结果
+Logs是用ssd的encode方法，但是没有经过信号放大得到的结果
+
+encode方法，现在是参考的siamrpn加信号值，如 dx = (gt_x - anchor_x)/(anchor_w + 0.01)，SSD中是 dx = (gt_x - anchor_x) / anchor_w / 0.1。需要改吗？
